@@ -1,38 +1,97 @@
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ServicesPage {
+  padding: 20px;
+  min-width: 30%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.ServiceList {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  min-height: 100px;
+  margin-top: 20px;
+  border: 1px solid #c4c4c5;
+}
+
+.ServiceWrapperValue {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.ServiceItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  width: 100%;
+  border-bottom: 1px solid #c4c4c5;
+  padding: 10px;
+}
+
+.ServiceItem:nth-last-child(1) {
+  border-bottom: none;
+}
+
+.ServiceButton {
+  border: none;
+  background-color: #db3948;
+  text-decoration: none;
+  font-size: 1rem;
   color: white;
+  padding: 7px 9px;
+  margin-left: 20px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.EditServicePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 30%;
+  min-height: 100px;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #c4c4c5;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.EditServiceForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.EditServiceForm > input {
+  border: 1px solid #c4c4c5;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.ButtonsBlock {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.CancelButton {
+  margin-right: 15px;
+}
+
+.CancelButton, .ChangeButton {
+  border: none;
+  background-color: #db3948;
+  padding: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+  color: white;
 }
