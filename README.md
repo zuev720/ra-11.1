@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+[![Build status](https://ci.appveyor.com/api/projects/status/2h5l6qiiefk4tc40?svg=true)](https://ci.appveyor.com/project/zuev720/ra-11-1)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+[gitHub-pages](https://zuev720.github.io/ra-11.1)
 
-In the project directory, you can run:
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+API
+===
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Вам необходимо переделать проект с лекции с использованием Router, а также нормальной обработкой загрузки и отображения ошибок.
 
-### `yarn test`
+Всё состояние должно храниться в Redux Store. Для взаимодействия с HTTP используйте fetch и Redux Thunk.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Basic Level
 
-### `yarn build`
+При переходе на главную страницу пользователя должно перенаправлять автоматически на адрес '/services', на котором загружается список услуг (GET http://localhost:7070/api/services).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+При загрузке данных (GET) должен отображаться спиннер (лоадер):
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![](https://github.com/netology-code/ra16-homeworks/raw/master/thunk/api-thunk/assets/spinner.png)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+При получении ошибки (статус не 2xx):
+ 
+![](https://github.com/netology-code/ra16-homeworks/raw/master/thunk/api-thunk/assets/error.png)
 
-### `yarn eject`
+При нормальных загруженных данных:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![](https://github.com/netology-code/ra16-homeworks/raw/master/thunk/api-thunk/assets/list.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Для главной страницы сервер присылает данные в формате:
+```json
+[
+    {"id":1,"name":"Замена стекла","price":21000},
+    {"id":2,"name":"Замена дисплея","price":25000},
+    {"id":3,"name":"Замена аккумулятора","price":4000},
+    {"id":4,"name":"Замена микрофона","price":2500}
+]
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+При нажатии на кнопку удалить происходит удаление записи с последующей загрузкой всего списка.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Для удаления необходимо отправить запрос DELETE http://localhost:7070/api/serviced/:id, где id - id сервиса.
 
-## Learn More
+При нажатии на кнопку редактировать происходит переход по адресу: '/services/:id`, где id - это id сервиса.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+В форму подтягиваются данные через GET-запрос (требования к отображению лоадара и ошибок - соответствующие):
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![](https://github.com/netology-code/ra16-homeworks/raw/master/thunk/api-thunk/assets/edit.png)
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Обратите внимание, что в форме есть поле `content`, которое приходит только если сделать запрос GET http://localhost:7070/api/services/:id:
 
-### Analyzing the Bundle Size
+```json
+{
+    "id":1,
+    "name":"Замена стекла",
+    "price":21000,
+    "content":"Стекло оригинал от Apple"
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+При нажатии на кнопку Отмена, происходит возврат к предыдущей странице.
 
-### Making a Progressive Web App
+При нажатии на кнопку Сохранить, происходит сохранение записи. При этом:
+1. Спиннер должен отображаться
+1. Если сохранение прошло успешно, выполняется переход на страницу со списком
+1. Если сохранение прошло с ошибкой, переход не осуществляется, высвечивается сообщение об ошибке.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Для сохранения необходимо отправить POST-запрос по адресу http://localhost:7070/api/services, передав весь JSON (с id)
 
-### Advanced Configuration
+### Advanced Level (необязательная часть)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Сделайте так, чтобы при нажатии на кнопку удалить в списке вместо кнопок появлялся спиннер:
 
-### Deployment
+![](https://github.com/netology-code/ra16-homeworks/raw/master/thunk/api-thunk/assets/remove-spinner.png)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Обратите внимание, что "в состоянии удаления" могут быть одновременно несколько записей (как на картинке).
 
-### `yarn build` fails to minify
+То же самое с формой редактирования: отключайте всю форму и рисуйте спиннер не вместо всей формы, а только на кнопке:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![](https://github.com/netology-code/ra16-homeworks/raw/master/thunk/api-thunk/assets/edit-spinner.png)
