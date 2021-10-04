@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import Loader from "react-loader-spinner";
-import {fetchServices} from "../../../actions/actionCreators";
 import {useDispatch} from "react-redux";
 import {ErrorComponent} from "../../ErrorComponent/ErrorComponent";
+import {fetchServices} from "../../../store/Slices/servicesFetchSlice";
 
 export function ServiceItem (props) {
     const initialState = {loading: false, error: null};
@@ -18,7 +18,7 @@ export function ServiceItem (props) {
                 setState({...state, loading: false, error: response.statusText});
             }
             setState(initialState);
-            await fetchServices(dispatch);
+            dispatch(fetchServices(dispatch));
         } catch(e) {
             setState({...state, loading: false, error: e.message});
         }

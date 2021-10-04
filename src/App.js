@@ -13,7 +13,7 @@ import {Redirect} from 'react-router';
 function App() {
     return (
         <Provider store={store}>
-            <Router>
+            <Router basename={'ra-11.1'}>
                 <div className="App">
                     <Switch>
                         <Route exact={true} path={'/services'} component={MainPage}/>
